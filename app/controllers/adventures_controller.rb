@@ -1,4 +1,4 @@
-class Api::V1::AdventuresController < ApplicationController
+class AdventuresController < ApplicationController
   before_action :set_adventure, only: [:show, :update, :destroy]
 
   # GET /adventures

@@ -1,6 +1,11 @@
-class Api::V1::EventsController < ApplicationController
+class EventsController < ApplicationController
   before_action :set_event, only: [:show, :update, :destroy]
 
+  # GET /events/1
+  def show
+    render json: @event
+  end
+  
   # GET /events
   def index
     @events = Event.all
@@ -8,10 +13,6 @@ class Api::V1::EventsController < ApplicationController
     render json: @events
   end
 
-  # GET /events/1
-  def show
-    render json: @event
-  end
 
   # POST /events
   def create
