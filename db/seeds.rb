@@ -16,7 +16,7 @@ adventures = Adventure.create([
     },
     {
         name: 'Historical Site',
-        image_url: 'https://images.app.goo.gl/PiqNjqjizuxdgj8s7'
+        image_url: 'https://media.giphy.com/media/h4Ob0vjmqFrgTUBFrJ/giphy.gif'
     },
     {
         name: 'Food',
