@@ -1,3 +1,3 @@
 class Adventure < ApplicationRecord
-    has_many :event
+    has_many :events, dependent: :destroy
 end

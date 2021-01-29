@@ -4,13 +4,12 @@ class AdventuresController < ApplicationController
   # GET /adventures
   def index
     @adventures = Adventure.all
-
     render json: @adventures
   end
 
   # GET /adventures/1
   def show
-    render json: @adventure
+    render json: @adventure, status: 200
   end
 
   # POST /adventures
@@ -36,6 +35,7 @@ class AdventuresController < ApplicationController
   # DELETE /adventures/1
   def destroy
     @adventure.destroy
+    render json: @adventure
   end
 
   private

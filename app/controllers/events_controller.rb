@@ -1,22 +1,23 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :update, :destroy]
+  before_action :set_adventure
+  before_action :set_event, only: [:show, :destroy]
 
   # GET /events/1
   def show
-    render json: @event
+    @event = Event.find(params[:id])
+    render json: @event, status: 200
   end
   
   # GET /events
   def index
-    @events = Event.all
-
+    @events = @adventure.events.all
     render json: @events
   end
 
 
   # POST /events
   def create
-    @event = Event.new(event_params)
+    @event = @adventure.events.create(event_params)
 
     if @event.save
       render json: @event, status: :created, location: @event
@@ -36,13 +37,19 @@ class EventsController < ApplicationController
 
   # DELETE /events/1
   def destroy
+    @event = Event.find(params[:id])
     @event.destroy
+    render json: @event
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
-      @event = Event.find(params[:id])
+      @event = @adventure.events.find_by(id: params[:id])
+    end
+
+    def set_adventure
+      @adventure = Adventure.find_by(id: params[:adventure_id])
     end
 
     # Only allow a trusted parameter "white list" through.
