@@ -1,26 +1,26 @@
 class EventsController < ApplicationController
-  before_action :set_adventure
-  before_action :set_event, only: [:show, :destroy]
+  before_action :set_event, only: [:update]
 
   # GET /events/1
-  def show
-    @event = Event.find(params[:id])
-    render json: @event, status: 200
-  end
+  # def show
+  #   render json: @event
+  # end
   
   # GET /events
   def index
-    @events = @adventure.events.all
+    @events = Event.where(adventure_id: params[:adventure_id])
+
     render json: @events
   end
 
 
   # POST /events
   def create
-    @event = @adventure.events.create(event_params)
+    event = Event.new(title: params[:title], description: params[:description], krio: params[:krio], adventure_id: params[:adventure_id]) 
 
-    if @event.save
-      render json: @event, status: :created
+    if event.save
+      events = Event.where(adventure_id: params[:adventure_id])
+      render json: events, status: :created, location: @event
     else
       render json: @event.errors, status: :unprocessable_entity
     end
@@ -37,19 +37,21 @@ class EventsController < ApplicationController
 
   # DELETE /events/1
   def destroy
-    @event = Event.find(params[:id])
-    @event.destroy
-    render json: @event
+  
+    event = Event.find_by(id: params["id"])
+    event.destroy
+    render json: event
+  end
+
+  def show 
+    evetns = Event.find_by(adventure_id: params[:adventure_id])
+    render json: events
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
-      @event = @adventure.events.find_by(id: params[:id])
-    end
-
-    def set_adventure
-      @adventure = Adventure.find_by(id: params[:adventure_id])
+      @event = Event.find(id: params["id"])
     end
 
     # Only allow a trusted parameter "white list" through.

@@ -4,12 +4,13 @@ class AdventuresController < ApplicationController
   # GET /adventures
   def index
     @adventures = Adventure.all
+
     render json: @adventures
   end
 
   # GET /adventures/1
   def show
-    render json: @adventure, status: 200
+    render json: @adventure
   end
 
   # POST /adventures
